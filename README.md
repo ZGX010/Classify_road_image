@@ -1,17 +1,18 @@
 # Classify_road_image
-## 1  项目实现功能：<br>
->本项目在路面影像上训练Inception_V4模型，实现对的路面影像按有无病害进行分类，测试集上准确率为：，同时提供一个已经在病害影像上训练好的持久化模型，方便进行进一步训练，以适用于自己的数据，并缩短训练时间．<br>
->当运行［8］推理脚本时，脚本将载入训练好的ＰＢ模型，Ｔensorflow会从指定的文件夹读取图像，并输入神经网络计算两种类别分别的得分．依据得分将图片移动至对应的文件夹<br>
+## 1  Ｐroject Ｆunction：<br>
+This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the test set is:0.95． At the same time, I provide a model that has been trained on the disease image to facilitate further training. Apply to your own data and shorten training time.<br>
+When you run the [8] inference script, the trained PB model will be loaded, and Tensorflow will read the image from the specified folder and enter the neural network to calculate the scores for the two categories. Move the image to the corresponding folder based on the score<br>
+The following GIF is the script running process．<br>
 <div align=center><img width="520" height="320" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
 
-## 2  Ｉnception_V4 图像分类网络结构
+## 2  Ｉnception_V4 model
 
 <div align=center><img width="1000" height="629" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png"/></div>
 <div align=center><img width="1000" height="337" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png"/></div>
 <br>
 
-## 3  运行环境
+## 3  Operating Evironment
 * ubuntu 16.04
 * CUDA8.0 & CUdnn6.0
   * ```sudo pip install CUDA&cudnn```
@@ -20,7 +21,7 @@
 * tensorflow 1.6
   * ```sudo pip install tensorflow-gpu ```
 
-## 4 数据准备
+## 4 Dta Peparation
 ### 4.1 克隆代码至本地：<br>
 ```Python
 git clone https://github.com/ZGX010/Classify_road_image.git
