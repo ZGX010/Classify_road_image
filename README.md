@@ -18,6 +18,13 @@
 * CUDA8.0 & CUdnn6.0
 
 ## 数据准备
+### 克隆代码至本地：<br>
+```Python
+git clone https://github.com/ZGX010/Classify_road_image.git
+```
+### 运行环境检测
+
+
 
 ## 训练模型
 ```Python
