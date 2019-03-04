@@ -23,8 +23,16 @@
 git clone https://github.com/ZGX010/Classify_road_image.git
 ```
 ### 运行环境检测
-
-
+```Ｐython
+cd $HOME/workspace/models/research/slim
+python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
+```
+### 数据处理为ＴＦＲ格式
+```python
+download_and_convert_data.py \
+    --dataset_name=flowers \
+    --dataset_dir=./tmp/data/flowers
+```
 
 ## 训练模型
 ```Python
