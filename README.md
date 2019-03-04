@@ -28,15 +28,40 @@ git clone https://github.com/ZGX010/Classify_road_image.git
 ### 4.2 运行环境检测
 >在文件目录下运行检测
 ```Ｐython
+python -c "import tensorflow.contrib.slim as slim; eval = slim.evaluation.evaluate_once"
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
 
 ### 4.3 处理需要训练的图像数据处理格式
->将需要训练的数据转为ＴＦＲecord格式，因为在脚本中已经添加了mydata数据集，所以直接将需要训练的数据集，命名为mydata即可．
+
+>只训练本项目提供的数据：将需要训练的数据转为ＴＦＲecord格式，因为在脚本中已经添加了mydata数据集，所以直接将需要训练的数据集，命名为mydata即可．
 ```python
-download_and_convert_data.py \
+convert_data.py \
 --dataset_name=mydata \
 --dataset_dir=./tmp/data/mydata
+```
+>训练自己的数据集：
+>>修改covert_mydata.py文件
+```Python
+_NUM_SHARDS = ？ #class of file
+_RANDOM_SEED = 4
+_NUM_VALIDATION = ？ #number of the validation class
+```
+>>修改mydata.py文件
+```python
+SPLITS_TO_SIZES = {'train': ？, 'validation': ？ }
+_FILE_PATTERN = 'mydata_%s_*.tfrecord'
+_NUM_CLASSES = ？
+```
+>>修改dataset_factry.py文件
+>>>在脚本开头添加'mydata'
+```python
+from datasets import mydata
+```
+>>>在dataset_map中添加'mydata'
+```python
+datasets_map = {
+    'mydata': mydata,}
 ```
 
 ## 5  训练模型
