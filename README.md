@@ -1,9 +1,10 @@
 # Classify_road_image
 <img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif" width=425 height=240 />
 <br>
-<div align=center><img width="720" height="420" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
+<div align=center><img width="520" height="220" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
-```python
+
+```Python
 CUDA_VISIBLE_DEVICES=1 \
 python train_image_classifier.py \
 --train_dir='./tmp/data/mydata/train_logs' \
@@ -13,6 +14,7 @@ python train_image_classifier.py \
 --checkpoint_exclude_scopes=InceptionV4/Logits,InceptionV4/AuxLogits \
 --train_image_size=1400
 ```
+<br>
 
 CUDA_VISIBLE_DEVICES=1 \
 python eval_image_classifier.py \
