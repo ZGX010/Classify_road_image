@@ -21,51 +21,49 @@ The following GIF is the script running process．<br>
 * tensorflow 1.6
   * ```sudo pip install tensorflow-gpu ```
 
-## 4 Dta Peparation
-### 4.1 克隆代码至本地：<br>
+## 4 Data Peparation
+### 4.1 Clone the code to the local：<br>
 ```Python
 git clone https://github.com/ZGX010/Classify_road_image.git
 ```
-### 4.2 运行环境检测
->在文件目录下运行检测
+### 4.2 Operating environment test
+Run detection in the file directory
 ```Ｐython
 python -c "import tensorflow.contrib.slim as slim; eval = slim.evaluation.evaluate_once"
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
 
-### 4.3 处理需要训练的图像数据处理格式
+### 4.3 Handling image data processing formats that require training
 
->只训练本项目提供的数据：将需要训练的数据转为ＴＦＲecord格式，因为在脚本中已经添加了mydata数据集，所以直接将需要训练的数据集，命名为mydata即可．
+Only train the data provided by this project: convert the data that needs to be trained into the TFRecord format, because the mydata dataset has been added to the script, so the dataset that needs to be trained is directly named mydata.
 ```python
 convert_data.py \
 --dataset_name=mydata \
 --dataset_dir=./tmp/data/mydata
 ```
->训练自己的数据集：
->>修改covert_mydata.py文件
+Train your own data set：
+Modify the covert_mydata.py file
 ```Python
 _NUM_SHARDS = ？ #class of file
 _RANDOM_SEED = 4
 _NUM_VALIDATION = ？ #number of the validation class
 ```
->>修改mydata.py文件
+Modify the mydata.py file
 ```python
 SPLITS_TO_SIZES = {'train': ？, 'validation': ？ }
 _FILE_PATTERN = 'mydata_%s_*.tfrecord'
 _NUM_CLASSES = ？
 ```
->>修改dataset_factry.py文件
->>>在脚本开头添加'mydata'
+Modify the dataset_factry.py file
 ```python
 from datasets import mydata
 ```
->>>在dataset_map中添加'mydata'
 ```python
 datasets_map = {
     'mydata': mydata,}
 ```
 
-## 5  训练模型
+## 5  Train model
 ```Python
 python train_image_classifier.py \
 --train_dir='./tmp/data/mydata/train_logs' \
@@ -76,7 +74,7 @@ python train_image_classifier.py \
 ```
 <br>
 
-## 6  评价模型
+## 6  Eval model
 ```Python
 python eval_image_classifier.py \
 --alsologtostderr \
@@ -88,8 +86,8 @@ python eval_image_classifier.py \
 ```
 <br>
 
-## 7  导出模型
-### 7．1 导出结构
+## 7  Export model
+### 7．1 Export model graph
 ```Python
 python export_inference_graph.py \
 --alsologtostderr \
@@ -99,7 +97,7 @@ python export_inference_graph.py \
 ```
 <br>
 
-### 7.2 为模型架构载入训练好的参数
+### 7.2 Load trained parameters for the graph architecture
 ```Python
 python freeze_graph.py \
 --input_graph=./tmp/data/mydata/inception_v4_inf_graph.pb \
@@ -110,7 +108,7 @@ python freeze_graph.py \
 ```
 <br>
 
-## 8  加载模型并进行推理
+## 8  Load the model and inference
 ```Python
 python classify_image_inception_v3.py \
 --model_path=./tmp/data/mydata/crake_classify.pb \
