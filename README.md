@@ -3,7 +3,7 @@
 This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the test set is:0.95． At the same time, I provide a model that has been trained on the disease image to facilitate further training. Apply to your own data and shorten training time.<br>
 When you run the [8] inference script, the trained PB model will be loaded, and Tensorflow will read the image from the specified folder and enter the neural network to calculate the scores for the two categories. Move the image to the corresponding folder based on the score<br>
 The following GIF is the script running process．<br>
-<div align=center><img width="350" height="120" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
+<div align=center><img width="800" height="420" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
 
 ## 2  Inception_V4 model
