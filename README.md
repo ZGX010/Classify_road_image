@@ -1,5 +1,5 @@
 # Classify_road_image
-<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png" width=400 height=240 /><img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png" width=400 height=240 />
+<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png" width=400 height=240 /><img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png" width=400 height=240 />
 <br>
 
 <div align=center><img width="520" height="320" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
