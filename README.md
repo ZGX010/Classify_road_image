@@ -1,7 +1,8 @@
 # Classify_road_image
-
-<div align=center><img width="520" height="320" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
+<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png" width=400 height=329 />
+<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png" width=400 height=329 />
 <br>
+
 
 ```Python
 CUDA_VISIBLE_DEVICES=1 \
