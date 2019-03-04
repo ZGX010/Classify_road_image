@@ -5,10 +5,10 @@
 <div align=center><img width="520" height="320" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
 
-## ＩnceptionV4版本的图像分类网络
+## Ｉnception_V4 图像分类网络结构
 
-<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png" width=1000 height=629 />
-<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png" width=1000 height=337 />
+<div align=center><img width="1000" height="629" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png"/></div>
+<div align=center><img width="1000" height="337" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png"/></div>
 <br>
 
 ## 运行环境
