@@ -3,6 +3,7 @@
 <br>
 <div align=center><img width="720" height="420" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
+'''python
 CUDA_VISIBLE_DEVICES=1 \
 python train_image_classifier.py \
 --train_dir='./tmp/data/mydata/train_logs' \
@@ -11,6 +12,7 @@ python train_image_classifier.py \
 --dataset_dir=./tmp/data/mydata
 --checkpoint_exclude_scopes=InceptionV4/Logits,InceptionV4/AuxLogits \
 --train_image_size=1400
+'''
 
 CUDA_VISIBLE_DEVICES=1 \
 python eval_image_classifier.py \
