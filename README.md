@@ -30,8 +30,8 @@ python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ### 数据处理为ＴＦＲ格式
 ```python
 download_and_convert_data.py \
-    --dataset_name=flowers \
-    --dataset_dir=./tmp/data/flowers
+--dataset_name=mydata \
+--dataset_dir=./tmp/data/mydata
 ```
 
 ## 训练模型
