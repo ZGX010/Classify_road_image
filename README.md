@@ -1,7 +1,7 @@
 # Classify_road_image
-## 1.项目实现的功能：<br>
-本项目实现了基于InceptionV4网络实现的路面影像分类<br>
-当运行推理脚本时，tensorflow会从指定的文件夹读取图像输入神经网络并计算每种类别的得分，将得分最高的种类判定为图像所属种类．并将图片移动至对应种类的文件夹<br>
+## 1.项目实现功能：<br>
+>本项目在路面影像上训练Inception_V4模型，实现对的路面影像按有无病害进行分类，测试集上准确率为：，同时提供一个已经在病害影像上训练好的持久化模型，方便进行进一步训练，以适用于自己的数据，并缩短训练时间．<br>
+>当运行［8］推理脚本时，脚本将载入训练好的ＰＢ模型，Ｔensorflow会从指定的文件夹读取图像，并输入神经网络计算两种类别分别的得分．依据得分将图片移动至对应的文件夹<br>
 <div align=center><img width="520" height="320" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
 
@@ -23,11 +23,12 @@
 git clone https://github.com/ZGX010/Classify_road_image.git
 ```
 ### 4.2运行环境检测
-在文件目录下运行检测
+>在文件目录下运行检测
 ```Ｐython
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
 ### 4.3将需要训练的图像数据处理为ＴＦＲ格式
+>将需要训练的数据转为ＴＦＲecord格式，因为在脚本中已经添加了mydata数据集，所以直接将需要训练的数据集，命名为mydata即可．
 ```python
 download_and_convert_data.py \
 --dataset_name=mydata \
