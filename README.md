@@ -8,7 +8,7 @@
 ## ＩnceptionV4版本的图像分类网络
 
 <img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png" width=1000 height=629 />
-<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png" width=1000 height=629 />
+<img src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png" width=1000 height=337 />
 <br>
 
 ## 运行环境
