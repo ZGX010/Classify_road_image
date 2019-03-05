@@ -1,13 +1,18 @@
 # Classify_road_image
 ## 1  Project Function：<br>
-This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the test set is:0.95． At the same time, I provide a model that has been trained on the disease image to facilitate further training. Apply to your own data and shorten training time.<br>
-When you run the [8] inference script, the trained PB model will be loaded, and Tensorflow will read the image from the specified folder and enter the neural network to calculate the scores for the two categories. Move the image to the corresponding folder based on the score<br>
-The following GIF is the script running process．<br>
+This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the model on the test set is 0.95.　At the same time, I provide a model that has been trained on the disease image to facilitate fur－training　and shorten training time.　
+<br>
+
+The inference script will load the trained PB model and read the image from the specified folder. After entering the neural network, the script will calculate the scores of the two categories and move the image to the corresponding folder according to the score.　
+<br>
+
+The following GIF is the script running process．
+<br>
 <div align=center><img width="450" height="240" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
 
 ## 2  Inception_V4 model
-
+The following figure shows the structure of the inceptionV4 model, which consists of model-a/model-b/model-c. If you want to know more about the model, you can read the related papers.The default image size of the model is 299＠299, which you can modify in the script.
 <div align=center><img width="800" height="480" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png"/></div>
 <div align=center><img width="800" height="240" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png"/></div>
 <br>
@@ -15,7 +20,7 @@ The following GIF is the script running process．<br>
 ## 3  Operating Evironment
 * ubuntu 16.04
 * CUDA8.0 & CUdnn6.0
-  * ```sudo pip install CUDA&cudnn```
+  * link:
 * opencv3 for python2.7
   * ```sudo pip install opencv3```
 * tensorflow 1.6
@@ -32,17 +37,20 @@ Run detection in the file directory
 python -c "import tensorflow.contrib.slim as slim; eval = slim.evaluation.evaluate_once"
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
-
 ### 4.3 Handling image data processing formats that require training
-> 如果你只是想验证一下，可以只使用我提供的数据集．数据和InceptionV4的预训练模型放置的地址为＇./tmp/data/＇,由于该文件夹太大超出了上传文件的大小限制，所以我将他们单独放置在网盘上，如果你需要可以按照文件中的readme操作获得数据与模型的下载链接．其中mydata文件夹中包含按类别分别放置的道路影像数据． <br>
-脚本Ｃonvert_data.py是通过slim自带的download_and_convert_fllower.py修改而来．如果需要验证请直接运行． <br>
+> If you just want to try training, you can just use the data set I provided.The address of the data and InceptionV4 pre-training model is ./tmp/data/, but the size of the folder exceeds the upload limit, so I placed them separately on the network disk. Please follow the readme in the mydata folder to get the download link. The mydata folder contains road image data placed by category. 
+<br>
+The script Convert_data.py is modified by download_and_convert_data.py. If you need verification, please run it directly. 
+<br>
+
 ```python
 convert_data.py \
 --dataset_name=mydata \
 --dataset_dir=./tmp/data/mydata
 ```
-> 而如果你想要训练自己的数据集，使网络在你的数据上表现的更好，需要进行如下修改，其中包括修改验证集的图片数量/划分训练集和验证集的数量/最后输出的类别数量/在数据集字典中添加数据的名字．
-* 修改Ｃonvert_mydata文件，参数_NUM_SHARDS是指将训练的数据打包成几个部分，如果设置为２，那么脚本将会把数据集文件中的图片按训练和验证分别打包成２个ＴＦＲecord文件．参数_NUM_VALIDATION指定了从图像中抽取多少张影像作为验证集，如果你设置它为１５０，那么将会有１５０张影像被用于测试模型的准确率，
+> If you want to train your own dataset or make the network perform better on your dataset, you need to make the following changes, including modifying the number of images in the validation set/dividing the training set and the number of validation sets/the final output category / Add the name of the data in the dataset dictionary. 
+<br>
+*　Modify the Convert_mydata file. The parameter　＇_NUM_SHARDS＇　refers to packing the training data into several. If set　＇_NUM_SHARDS＇ to ＇2＇, the script will package the images in the dataset file into 2 TFRecord files according to training and verification. The parameter ＇_NUM_VALIDATION＇ specifies how many images are extracted from the image as a validation set. If you set ＇_NUM_VALIDATION＇ to 150, then 150 images will be used to test the accuracy of the model.
 <br>
 
 ```Python
