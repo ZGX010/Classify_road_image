@@ -50,29 +50,34 @@ convert_data.py \
 ```
 > If you want to train your own dataset or make the network perform better on your dataset, you need to make the following changes, including modifying the number of images in the validation set/dividing the training set and the number of validation sets/the final output category / Add the name of the data in the dataset dictionary. 
 <br>
-*　Modify the Convert_mydata file. The parameter　＇_NUM_SHARDS＇　refers to packing the training data into several. If set　＇_NUM_SHARDS＇ to ＇2＇, the script will package the images in the dataset file into 2 TFRecord files according to training and verification. The parameter ＇_NUM_VALIDATION＇ specifies how many images are extracted from the image as a validation set. If you set ＇_NUM_VALIDATION＇ to 150, then 150 images will be used to test the accuracy of the model.
+
+* Modify the Convert_mydata file. The parameter　＇_NUM_SHARDS＇　refers to packing the training data into several. If set　＇_NUM_SHARDS＇ to ＇2＇, the script will package the images in the dataset file into 2 TFRecord files according to training and verification. The parameter ＇_NUM_VALIDATION＇ specifies how many images are extracted from the image as a validation set. If you set ＇_NUM_VALIDATION＇ to 150, then 150 images will be used to test the accuracy of the model.
 <br>
 
 ```Python
-_NUM_SHARDS = ？ #class of file
+_NUM_SHARDS = 2 #class of file
 _RANDOM_SEED = 4
-_NUM_VALIDATION = ？ #number of the validation class
+_NUM_VALIDATION = 150 #number of the validation class
 ```
 <br>
-* 由于convert_mydata引用了mydata所以我们需要在mydata中详细划分用于训练的样本数量和用于验证的样本数量，同时也可以修改打包文件的文件名，并设定输出结果的类别数量.如果你训练的网络最后输出有16种，你可以在_NUM_CLASSES处设置为16，当你有空这一类时也要将其视为一类．
+
+* Since convert_mydata references mydata, you need to divide the number of samples for training and verification in mydata. You can also modify the file name of the packaged file and set the number of categories of output. If you train the network to output 16 results then Set ＇_NUM_CLASSES＇ to 16.
 <br>
+
 ```python
-SPLITS_TO_SIZES = {'train': ？, 'validation': ？ }
+SPLITS_TO_SIZES = {'train': 3000 , 'validation': 150 }
 _FILE_PATTERN = 'mydata_%s_*.tfrecord'
-_NUM_CLASSES = ？
+_NUM_CLASSES = 2
 ```
 <br>
-* 由于mydata文件引用了dataset_factry,所以需要先将mydata引入dataset_factry，并在datasets_map中注册数据．
+
+* Modify the dataset_factry to register the mydata dataset.
 <br>
 
 ```python
 from datasets import mydata
 ```
+<br>
 ```python
 datasets_map = {
     'mydata': mydata,}
