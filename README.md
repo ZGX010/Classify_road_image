@@ -10,7 +10,7 @@ The inference script will load the trained PB model and read the image from the 
 
 The following GIF is the script running process．
 <br>
-<div align=center><img width="580" height="460" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
+<div align=center><img width="840" height="480" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
 <br>
 
