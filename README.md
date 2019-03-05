@@ -1,7 +1,6 @@
 # Classify_road_image
 
 ## 1  Project Function
-
 This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the model on the test set is 0.95.　At the same time, I provide a model that has been trained on the disease image to facilitate fur－training　and shorten training time.　
 <br>
 
@@ -36,8 +35,7 @@ The following figure shows the structure of the inceptionV4 model, which consist
 ### 4.1 Clone the code to the local：<br>
 ```Python
 git clone https://github.com/ZGX010/Classify_road_image.git
-```
-<br>
+``` 
 
 ### 4.2 Operating environment test
 Run detection in the file directory
@@ -45,7 +43,6 @@ Run detection in the file directory
 python -c "import tensorflow.contrib.slim as slim; eval = slim.evaluation.evaluate_once"
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
-<br>
 
 ### 4.3 Processing training pictures
 > If you just want to try training, you can just use the data set I provided.The address of the data and InceptionV4 pre-training model is ./tmp/data/, but the size of the folder exceeds the upload limit, so I placed them separately on the network disk. Please follow the readme in the mydata folder to get the download link. The mydata folder contains road image data placed by category. <br>
