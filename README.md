@@ -45,6 +45,7 @@ convert_data.py \
 * 而如果你想要训练自己的数据集，使网络在你的数据上表现的更好，需要进行如下修改，其中包括修改验证集的图片数量/划分训练集和验证集的数量/最后输出的类别数量/在数据集字典中添加数据的名字．
 > 修改Ｃonvert_mydata文件，参数_NUM_SHARDS是指将训练的数据打包成几个部分，如果设置为２，那么脚本将会把数据集文件中的图片按训练和验证分别打包成２个ＴＦＲecord文件．参数_NUM_VALIDATION指定了从图像中抽取多少张影像作为验证集，如果你设置它为１５０，那么将会有１５０张影像被用于测试模型的准确率，
 <br>
+
 ```Python
 _NUM_SHARDS = ？ #class of file
 _RANDOM_SEED = 4
@@ -53,14 +54,19 @@ _NUM_VALIDATION = ？ #number of the validation class
 <br>
 > 由于convert_mydata引用了mydata所以我们需要在mydata中详细划分用于训练的样本数量和用于验证的样本数量，同时也可以修改打包文件的文件名，并设定输出结果的类别数量.如果你训练的网络最后输出有16种，你可以在_NUM_CLASSES处设置为16，当你有空这一类时也要将其视为一类．
 <br>
+
 > Modify the mydata.py file
 ```python
 SPLITS_TO_SIZES = {'train': ？, 'validation': ？ }
 _FILE_PATTERN = 'mydata_%s_*.tfrecord'
 _NUM_CLASSES = ？
 ```
+<br>
+
 > 由于mydata文件引用了dataset_factry,所以需要先将mydata引入dataset_factry，并在datasets_map中注册数据．
 > Modify the dataset_factry.py file
+<br>
+
 ```python
 from datasets import mydata
 ```
