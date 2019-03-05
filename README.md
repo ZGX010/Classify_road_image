@@ -52,6 +52,7 @@ _RANDOM_SEED = 4
 _NUM_VALIDATION = ？ #number of the validation class
 ```
 <br>
+
 > 由于convert_mydata引用了mydata所以我们需要在mydata中详细划分用于训练的样本数量和用于验证的样本数量，同时也可以修改打包文件的文件名，并设定输出结果的类别数量.如果你训练的网络最后输出有16种，你可以在_NUM_CLASSES处设置为16，当你有空这一类时也要将其视为一类．
 <br>
 
