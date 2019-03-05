@@ -1,6 +1,7 @@
 # Classify_road_image
 
-## 1  Project Function：<br>
+## 1  Project Function
+
 This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the model on the test set is 0.95.　At the same time, I provide a model that has been trained on the disease image to facilitate fur－training　and shorten training time.　
 <br>
 
@@ -11,11 +12,13 @@ The following GIF is the script running process．
 <br>
 <div align=center><img width="450" height="240" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/classimage.gif"/></div>
 <br>
+<br>
 
 ## 2  Inception_V4 model
 The following figure shows the structure of the inceptionV4 model, which consists of model-a/model-b/model-c. If you want to know more about the model, you can read the related papers.The default image size of the model is 299＠299, which you can modify in the script.
 <div align=center><img width="800" height="480" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png"/></div>
 <div align=center><img width="800" height="240" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png"/></div>
+<br>
 <br>
 
 ## 3  Operating Evironment
@@ -26,20 +29,25 @@ The following figure shows the structure of the inceptionV4 model, which consist
   * ```sudo pip install opencv3```
 * tensorflow 1.6
   * ```sudo pip install tensorflow-gpu ```
+<br>
+<br>
 
 ## 4 Data Peparation
-
 ### 4.1 Clone the code to the local：<br>
 ```Python
 git clone https://github.com/ZGX010/Classify_road_image.git
 ```
+<br>
+
 ### 4.2 Operating environment test
 Run detection in the file directory
 ```Ｐython
 python -c "import tensorflow.contrib.slim as slim; eval = slim.evaluation.evaluate_once"
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
-### 4.3 Handling image data processing formats that require training
+<br>
+
+### 4.3 Processing training pictures
 > If you just want to try training, you can just use the data set I provided.The address of the data and InceptionV4 pre-training model is ./tmp/data/, but the size of the folder exceeds the upload limit, so I placed them separately on the network disk. Please follow the readme in the mydata folder to get the download link. The mydata folder contains road image data placed by category. <br>
 The script Convert_data.py is modified by download_and_convert_data.py. If you need verification, please run it directly. <br>
 ```python
@@ -47,6 +55,8 @@ convert_data.py \
 --dataset_name=mydata \
 --dataset_dir=./tmp/data/mydata
 ```
+<br>
+
 > If you want to train your own dataset or make the network perform better on your dataset, you need to make the following changes, including modifying the number of images in the validation set/dividing the training set and the number of validation sets/the final output category / Add the name of the data in the dataset dictionary. <br>
 * Modify the Convert_mydata file. The parameter　＇_NUM_SHARDS＇　refers to packing the training data into several. If set　＇_NUM_SHARDS＇ to ＇2＇, the script will package the images in the dataset file into 2 TFRecord files according to training and verification. The parameter ＇_NUM_VALIDATION＇ specifies how many images are extracted from the image as a validation set. If you set ＇_NUM_VALIDATION＇ to 150, then 150 images will be used to test the accuracy of the model.
 ```Python
@@ -67,10 +77,10 @@ from datasets import mydata
 datasets_map = {
     'mydata': mydata,}
 ```
-
+<br>
+<br>
 
 ## 5  Train model
-
 Parameters that can be set in the train_image_classifier file include: optimizer parameters/learning rate parameters/dataset parameters/and fur－training parameters.
 <br>
 
@@ -91,8 +101,8 @@ python train_image_classifier.py \
 --dataset_dir=./tmp/data/mydata
 --checkpoint_exclude_scopes=InceptionV4/Logits,InceptionV4/AuxLogits 
 ```
-
 <br>
+
 During the training, you can use Tensorboard to observe how the loss is reduced step by step during the training. When the log files of different training parameters are under the mydata file, you can compare the changes of loss under different conditions.
 <br>
 
@@ -100,7 +110,7 @@ During the training, you can use Tensorboard to observe how the loss is reduced 
 tensorboard --log_dir=./tmp/data/mydata/
 ```
 <br>
-
+<br>
 
 ## 6  Eval model
 Two evaluation scripts are provided here. eval_image_classifier.py calculates the performance of the network on the validation set and outputs the accuracy and top five recalls, while predict.py will output the performance of each image on the validation set.
@@ -127,15 +137,16 @@ python predict.py \
 --model_name=inception_v4
 ```
 <br>
-
+<br>
 
 ## 7  Export model
-
 ### 7．1 Export model graph
 Export_inference_graph.py only exports the structure of the model with no parameters. We will also import the trained parameters into the network and then perform the inference calculations. 
 <br>
+
 The parameter output_file sets the location and name of the output export model.　
 <br>
+
 ```Python
 python export_inference_graph.py \
 --alsologtostderr \
@@ -157,7 +168,7 @@ python freeze_graph.py \
 --output_graph=./tmp/data/mydata/crake_classify.pb
 ```
 <br>
-
+<br>
 
 ## 8  Load the model and inference
 The inference script loads the generated pb model and will read every picture in the './test' folder. You don't need to worry about image size and channel, because I convert the image to 3 channels and compress the image into 299@299 size. When you make a reasoning, you will automatically create two folders './yes' and './no' and move the picture to the corresponding folder according to the inference result. In the future, I will launch an accelerated version of TensorRT to achieve real-time detection above 80km/h. <br>
