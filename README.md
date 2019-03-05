@@ -1,4 +1,5 @@
 # Classify_road_image
+
 ## 1  Project Function：<br>
 This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the model on the test set is 0.95.　At the same time, I provide a model that has been trained on the disease image to facilitate fur－training　and shorten training time.　
 <br>
@@ -27,6 +28,7 @@ The following figure shows the structure of the inceptionV4 model, which consist
   * ```sudo pip install tensorflow-gpu ```
 
 ## 4 Data Peparation
+
 ### 4.1 Clone the code to the local：<br>
 ```Python
 git clone https://github.com/ZGX010/Classify_road_image.git
@@ -38,51 +40,37 @@ python -c "import tensorflow.contrib.slim as slim; eval = slim.evaluation.evalua
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
 ### 4.3 Handling image data processing formats that require training
-> If you just want to try training, you can just use the data set I provided.The address of the data and InceptionV4 pre-training model is ./tmp/data/, but the size of the folder exceeds the upload limit, so I placed them separately on the network disk. Please follow the readme in the mydata folder to get the download link. The mydata folder contains road image data placed by category. 
-<br>
-The script Convert_data.py is modified by download_and_convert_data.py. If you need verification, please run it directly. 
-<br>
-
+> If you just want to try training, you can just use the data set I provided.The address of the data and InceptionV4 pre-training model is ./tmp/data/, but the size of the folder exceeds the upload limit, so I placed them separately on the network disk. Please follow the readme in the mydata folder to get the download link. The mydata folder contains road image data placed by category. <br>
+The script Convert_data.py is modified by download_and_convert_data.py. If you need verification, please run it directly. <br>
 ```python
 convert_data.py \
 --dataset_name=mydata \
 --dataset_dir=./tmp/data/mydata
 ```
-> If you want to train your own dataset or make the network perform better on your dataset, you need to make the following changes, including modifying the number of images in the validation set/dividing the training set and the number of validation sets/the final output category / Add the name of the data in the dataset dictionary. 
-<br>
-
+> If you want to train your own dataset or make the network perform better on your dataset, you need to make the following changes, including modifying the number of images in the validation set/dividing the training set and the number of validation sets/the final output category / Add the name of the data in the dataset dictionary. <br>
 * Modify the Convert_mydata file. The parameter　＇_NUM_SHARDS＇　refers to packing the training data into several. If set　＇_NUM_SHARDS＇ to ＇2＇, the script will package the images in the dataset file into 2 TFRecord files according to training and verification. The parameter ＇_NUM_VALIDATION＇ specifies how many images are extracted from the image as a validation set. If you set ＇_NUM_VALIDATION＇ to 150, then 150 images will be used to test the accuracy of the model.
-<br>
-
 ```Python
 _NUM_SHARDS = 2 #class of file
 _RANDOM_SEED = 4
 _NUM_VALIDATION = 150 #number of the validation class
 ```
-<br>
-
 * Since convert_mydata references mydata, you need to divide the number of samples for training and verification in mydata. You can also modify the file name of the packaged file and set the number of categories of output. If you train the network to output 16 results then Set ＇_NUM_CLASSES＇ to 16.
-<br>
-
 ```python
 SPLITS_TO_SIZES = {'train': 3000 , 'validation': 150 }
 _FILE_PATTERN = 'mydata_%s_*.tfrecord'
 _NUM_CLASSES = 2
 ```
-<br>
-
 * Modify the dataset_factry to register the mydata dataset.
-<br>
-
 ```python
 from datasets import mydata
-```
-```python
+...
 datasets_map = {
     'mydata': mydata,}
 ```
 
+
 ## 5  Train model
+
 Parameters that can be set in the train_image_classifier file include: optimizer parameters/learning rate parameters/dataset parameters/and fur－training parameters.
 <br>
 
@@ -113,6 +101,7 @@ tensorboard --log_dir=./tmp/data/mydata/
 ```
 <br>
 
+
 ## 6  Eval model
 Two evaluation scripts are provided here. eval_image_classifier.py calculates the performance of the network on the validation set and outputs the accuracy and top five recalls, while predict.py will output the performance of each image on the validation set.
 <br>
@@ -139,7 +128,9 @@ python predict.py \
 ```
 <br>
 
+
 ## 7  Export model
+
 ### 7．1 Export model graph
 Export_inference_graph.py only exports the structure of the model with no parameters. We will also import the trained parameters into the network and then perform the inference calculations. 
 <br>
@@ -166,6 +157,7 @@ python freeze_graph.py \
 --output_graph=./tmp/data/mydata/crake_classify.pb
 ```
 <br>
+
 
 ## 8  Load the model and inference
 The inference script loads the generated pb model and will read every picture in the './test' folder. You don't need to worry about image size and channel, because I convert the image to 3 channels and compress the image into 299@299 size. When you make a reasoning, you will automatically create two folders './yes' and './no' and move the picture to the corresponding folder according to the inference result. In the future, I will launch an accelerated version of TensorRT to achieve real-time detection above 80km/h. <br>
