@@ -35,26 +35,26 @@ python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 
 ### 4.3 Handling image data processing formats that require training
 
-Only train the data provided by this project: convert the data that needs to be trained into the TFRecord format, because the mydata dataset has been added to the script, so the dataset that needs to be trained is directly named mydata.
+* Only train the data provided by this project: convert the data that needs to be trained into the TFRecord format, because the mydata dataset has been added to the script, so the dataset that needs to be trained is directly named mydata.
 ```python
 convert_data.py \
 --dataset_name=mydata \
 --dataset_dir=./tmp/data/mydata
 ```
-Train your own data set：
-Modify the covert_mydata.py file
+* Train your own data set：
+> Modify the covert_mydata.py file
 ```Python
 _NUM_SHARDS = ？ #class of file
 _RANDOM_SEED = 4
 _NUM_VALIDATION = ？ #number of the validation class
 ```
-Modify the mydata.py file
+> Modify the mydata.py file
 ```python
 SPLITS_TO_SIZES = {'train': ？, 'validation': ？ }
 _FILE_PATTERN = 'mydata_%s_*.tfrecord'
 _NUM_CLASSES = ？
 ```
-Modify the dataset_factry.py file
+> Modify the dataset_factry.py file
 ```python
 from datasets import mydata
 ```
