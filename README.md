@@ -77,17 +77,22 @@ _NUM_CLASSES = 2
 ```python
 from datasets import mydata
 ```
-<br>
 ```python
 datasets_map = {
     'mydata': mydata,}
 ```
 
 ## 5  Train model
-在train_image_classifier文件中可以设置参数包括：优化器参数/学习率参数/数据集参数/和迁移学习参数． <br>
-其中优化器默认是Ｒmsprop，而可选择的有＂adadelta＂/"adagrad"/"adam"/"ftrl"/"momentum"/"sgd"/"rmsprop".你可以在脚本中直接修改对应的名称，也可以将脚本修改为Ｎone，在执行时将参数传入． <br>
-学习率衰减类型默认是＂exponetial＂,当然你也可以选择其他的，脚本里对应位置都给出了提示．如果你的网络在训练刚开始时loss下降非常的缓慢，那么你可以升高learning_rate为网络初始化一个较高的学习率帮助网络快速收敛．但是如果你的网络训练的后期loss一直起伏不定，那么你可以修改end_learning_rate更小来尽可能的寻找一个最优结果． <br>
-在数据集参数中，默认训练的对象为数据集mydata，默认训练的模型为InceptionV4,如果你需要训练其他网络可以在脚本中修改，batchsize设定了每次训练输入网络的图像数量，如果你的ＧＰＵ并不大请改小此处．max_number_of_steps设定了训练的最大步数，脚本会根据初始学习率与最终学习率以及最大步数计算每一步参数移动的距离．
+Parameters that can be set in the train_image_classifier file include: optimizer parameters/learning rate parameters/dataset parameters/and fur－training parameters.
+<br>
+
+> The optimizer you can choose has "adadelta"/"adagrad"/"adam"/"ftrl"/"momentum"/"sgd"/"rmsprop", the default is Rmsprop. You can modify the corresponding name directly in the script or Modify the script to None and pass in the parameters when executed.
+<br>
+
+> You can choose a variety of learning rate attenuation types, the default is "exponetial". If your network is slow to slow down at the beginning of training, then you can raise the learning_rate to initialize a higher learning rate for the network to help the network converge quickly. If your network has been fluctuating in the late stages of training, then you need to reduce the end_learning_rate to find an optimal result.
+<br>
+
+> In the dataset parameters, the default training object is the mydata dataset. The default training model is InceptionV4. If you need to train other networks, you can modify them in the script. Batchsize sets the number of images input to the network each iteration. Max_number_of_steps sets the maximum number of steps to train. The script determines the distance of parameter movement in each step network by the initial learning rate and the final learning rate and the maximum number of steps.
 <br>
 
 ```Python
@@ -98,15 +103,20 @@ python train_image_classifier.py \
 --dataset_dir=./tmp/data/mydata
 --checkpoint_exclude_scopes=InceptionV4/Logits,InceptionV4/AuxLogits 
 ```
+
 <br>
-训练过程中你可以使用Tensorboard观察训练过程中loss是如何一步步下降，当所有的log文件都在mydata文件下时，就可以比较不同训练参数时loss的变化．
+During the training, you can use Tensorboard to observe how the loss is reduced step by step during the training. When the log files of different training parameters are under the mydata file, you can compare the changes of loss under different conditions.
+<br>
+
 ```Python
 tensorboard --log_dir=./tmp/data/mydata/
 ```
 <br>
 
 ## 6  Eval model
-这里提供了两个评估脚本eval_image_classifier会计算网络在有验证集上的表现并输出准确率和前五类召回率，而predict将会输出验证集上每张图片的表现．
+Two evaluation scripts are provided here. eval_image_classifier.py calculates the performance of the network on the validation set and outputs the accuracy and top five recalls, while predict.py will output the performance of each image on the validation set.
+<br>
+
 ```Python
 python eval_image_classifier.py \
 --alsologtostderr \
@@ -131,9 +141,10 @@ python predict.py \
 
 ## 7  Export model
 ### 7．1 Export model graph
-export_inference_graph只能导出模型的结构并没有参数，这样做是为了保留网络结构，参数在可以变更．我们还会将模型的参数导入到网络，方便后来推理时加载． <br>
-参数output_file设定了输出导出模型的位置与名字． <br>
-
+Export_inference_graph.py only exports the structure of the model with no parameters. We will also import the trained parameters into the network and then perform the inference calculations. 
+<br>
+The parameter output_file sets the location and name of the output export model.　
+<br>
 ```Python
 python export_inference_graph.py \
 --alsologtostderr \
@@ -143,8 +154,9 @@ python export_inference_graph.py \
 ```
 <br>
 
-freeze_graph将模型训练过程中任意一步下的参数加载进刚刚导出的模型结构中，其中input_graph是网络结构文件的位置，input_checkpoint是网络参数位置，output_graph是输出模型的位置．此时的pb模型包含了结构与参数．
 ### 7.2 Load trained parameters for the graph architecture
+Freeze_graph.py loads the parameters of any stage of the model into the exported network structure. Input_graph is the location of the network structure file. Input_checkpoint is the location of the network parameter. Output_graph is the location of the output model. The pb model at this time contains the structure and parameters.
+<br>
 ```Python
 python freeze_graph.py \
 --input_graph=./tmp/data/mydata/inception_v4_inf_graph.pb \
@@ -156,7 +168,7 @@ python freeze_graph.py \
 <br>
 
 ## 8  Load the model and inference
-在推理的脚本里，载入了刚刚生成的pb模型，并读取了./test文件夹中的每一个图片，这里你不需要考虑图像尺寸和通道的问题，我将影像转为了３通道，并将图片统一压缩为299＠299的尺寸．进行推理时将自动创建./yes和./no两个文件夹并将按照推理结果将图片放置进对应的文件夹，以实现分类的效果．后面我将会推出ＴensorRT的加速版本以实现80km/h以上的实时检测． <br>
+The inference script loads the generated pb model and will read every picture in the './test' folder. You don't need to worry about image size and channel, because I convert the image to 3 channels and compress the image into 299@299 size. When you make a reasoning, you will automatically create two folders './yes' and './no' and move the picture to the corresponding folder according to the inference result. In the future, I will launch an accelerated version of TensorRT to achieve real-time detection above 80km/h. <br>
 ```Python
 python classify_image_inception_v4.py \
 --model_path=./tmp/data/mydata/crake_classify.pb \
