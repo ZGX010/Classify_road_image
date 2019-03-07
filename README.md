@@ -1,6 +1,6 @@
 # Classify_road_image
 
-## 1  Project Function
+## Project Function
 This project trains the Inception_V4 model on the road image to realize the classification of the road image according to the disease. The accuracy of the model on the test set is 0.95.　At the same time, I provide a model that has been trained on the disease image to facilitate fur－training　and shorten training time.　
 <br>
 
@@ -13,14 +13,14 @@ The following GIF is the script running process．
 <br>
 <br>
 
-## 2  Inception_V4 model
+## Inception_V4 model
 The following figure shows the structure of the inceptionV4 model, which consists of model-a/model-b/model-c. If you want to know more about the model, you can read the related papers.The default image size of the model is 299＠299, which you can modify in the script.
 <div align=center><img width="800" height="480" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4.png"/></div>
 <div align=center><img width="800" height="240" src="https://github.com/ZGX010/Classify_road_image/blob/master/doc/inceptionv4model.png"/></div>
 <br>
 <br>
 
-## 3  Operating Evironment
+## Operating Evironment
 * ubuntu 16.04
 * CUDA8.0 & CUdnn6.0
   * link:
@@ -31,20 +31,20 @@ The following figure shows the structure of the inceptionV4 model, which consist
 <br>
 <br>
 
-## 4 Data Peparation
-### 4.1 Clone the code to the local：<br>
+## Data Peparation
+### Clone the code to the local：<br>
 ```Python
 git clone https://github.com/ZGX010/Classify_road_image.git
 ``` 
 
-### 4.2 Operating environment test
+### Operating environment test
 Run detection in the file directory
 ```Ｐython
 python -c "import tensorflow.contrib.slim as slim; eval = slim.evaluation.evaluate_once"
 python -c "from nets import cifarnet; mynet = cifarnet.cifarnet"
 ```
 
-### 4.3 Processing training pictures
+### Processing training pictures
 > If you just want to try training, you can just use the data set I provided.The address of the data and InceptionV4 pre-training model is ./tmp/data/, but the size of the folder exceeds the upload limit, so I placed them separately on the network disk. Please follow the readme in the mydata folder to get the download link. The mydata folder contains road image data placed by category. <br>
 The script Convert_data.py is modified by download_and_convert_data.py. If you need verification, please run it directly. <br>
 ```python
@@ -77,7 +77,7 @@ datasets_map = {
 <br>
 <br>
 
-## 5  Train model
+## Train model
 Parameters that can be set in the train_image_classifier file include: optimizer parameters/learning rate parameters/dataset parameters/and fur－training parameters.
 <br>
 
@@ -109,7 +109,7 @@ tensorboard --log_dir=./tmp/data/mydata/
 <br>
 <br>
 
-## 6  Eval model
+## Eval model
 Two evaluation scripts are provided here. eval_image_classifier.py calculates the performance of the network on the validation set and outputs the accuracy and top five recalls, while predict.py will output the performance of each image on the validation set.
 <br>
 
@@ -136,8 +136,8 @@ python predict.py \
 <br>
 <br>
 
-## 7  Export model
-### 7．1 Export model graph
+## Export model
+### Export model graph
 Export_inference_graph.py only exports the structure of the model with no parameters. We will also import the trained parameters into the network and then perform the inference calculations. 
 <br>
 
@@ -153,7 +153,7 @@ python export_inference_graph.py \
 ```
 <br>
 
-### 7.2 Load trained parameters for the graph architecture
+### Load trained parameters for the graph architecture
 Freeze_graph.py loads the parameters of any stage of the model into the exported network structure. Input_graph is the location of the network structure file. Input_checkpoint is the location of the network parameter. Output_graph is the location of the output model. The pb model at this time contains the structure and parameters.
 <br>
 ```Python
@@ -167,7 +167,7 @@ python freeze_graph.py \
 <br>
 <br>
 
-## 8  Load the model and inference
+## Load the model and inference
 The inference script loads the generated pb model and will read every picture in the './test' folder. You don't need to worry about image size and channel, because I convert the image to 3 channels and compress the image into 299@299 size. When you make a reasoning, you will automatically create two folders './yes' and './no' and move the picture to the corresponding folder according to the inference result. In the future, I will launch an accelerated version of TensorRT to achieve real-time detection above 80km/h. <br>
 ```Python
 python classify_image_inception_v4.py \
